@@ -1,0 +1,34 @@
+{
+    "name": "Greenhouse Job Monitor",
+    "description": "Checks for new jobs in a Greenhouse job page. For use with Heroku Scheduler.",
+    "repository": "https://github.com/akari-dogman/greenhouse-job-monitor",
+    "env": {
+        "SLUG": {
+            "description": "The company name located in the URL of the greenhouse site. Example: https://boards.greenhouse.io/figma/, the slug would be figma",
+            "required": true
+        },
+        "DISCORD_WEBHOOK": {
+            "description": "The URL given when you create a webhook in a Discord channel. Used to send notifications of new jobs.",
+            "required": true
+        },
+        "PERMALINK_PREPEND": {
+            "description": "[not required] Some greenhouse sites host the job description on a seperate page. For example, https://discord.com/jobs/{job_id}. This will replace the Job URL in the Discord notification it gives you. Leave blank if not required/not needed.",
+            "required": false
+        }
+    },
+    "addons": [
+        "scheduler",
+        {
+            "plan": "heroku-postgresql",
+            "options": {
+                "version": "14"
+            }
+        }
+    ],
+    "formation": {
+        "worker": {
+            "quantity": 0,
+            "size": "hobby"
+        }
+    }
+}
